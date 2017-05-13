@@ -50,7 +50,7 @@ open class ArticleCollectionViewCell: WMFExploreCollectionViewCell {
     public final var isSaveButtonHidden = false {
         didSet {
             saveButton?.isHidden = isSaveButtonHidden
-            saveButtonContainerView?.isHidden = isSaveButtonHidden
+            //saveButtonContainerView?.isHidden = isSaveButtonHidden
         }
     }
     
@@ -72,6 +72,9 @@ extension ArticleCollectionViewCell {
         } else {
             isImageViewHidden = true
         }
+
+contentView.layer.borderColor = UIColor.red.cgColor
+contentView.layer.borderWidth = 1
         
         titleLabel.text = article.displayTitle
         let displayType = contentGroup.displayType()
@@ -79,6 +82,9 @@ extension ArticleCollectionViewCell {
             textContainerView?.backgroundColor = UIColor.white
             descriptionLabel.text = article.wikidataDescription?.wmf_stringByCapitalizingFirstCharacter()
             extractLabel?.text = article.snippet
+
+//            extractLabel?.text = ("abc " as NSString).wmf_randomlyRepeatMaxTimes(48)
+            
             isSaveButtonHidden = false
             imageHeightConstraint?.constant = 196
         } else {
@@ -90,13 +96,17 @@ extension ArticleCollectionViewCell {
             
             textContainerView?.backgroundColor = displayType == .relatedPages ? UIColor.wmf_lightGrayCellBackground : UIColor.white
             extractLabel?.text = nil
+/*
             if let _ = saveButtonContainerView { //hack check for FullWidth vs RightAligned
                 isSaveButtonHidden = true
             } else {
                 isSaveButtonHidden = false
             }
+*/
             imageHeightConstraint?.constant = 150
         }
+        
+        descriptionLabel.isHidden = article.wikidataDescription == nil
         
         let language = (article.url as NSURL?)?.wmf_language
         titleLabel.accessibilityLanguage = language
