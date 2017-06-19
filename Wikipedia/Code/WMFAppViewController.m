@@ -395,18 +395,27 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreFeed = 2 * 60 * 60;
                         return;
                     }
                     [self migrateToRemoveUnreferencedArticlesIfNecessaryWithCompletion:^{
+                        if (!migrationsAllowed) {
+                            bail();
+                            return;
+                        }
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            [self endMigrationBackgroundTask];
-                            [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-                                [self loadMainUI];
-                                self.migrationComplete = YES;
-                                self.migrationActive = NO;
-                                if (!self.isWaitingToResumeApp) {
-                                    [self resumeApp:^{
-                                        [self hideSplashViewAnimated:!didShowOnboarding];
+                            [self.dataStore performLibraryMigrationIfNecessaryWithCompletion:^(NSError *error){
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self endMigrationBackgroundTask];
+                                    [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+                                        [self loadMainUI];
+                                        self.migrationComplete = YES;
+                                        self.migrationActive = NO;
+                                        if (!self.isWaitingToResumeApp) {
+                                            [self resumeApp:^{
+                                                [self hideSplashViewAnimated:!didShowOnboarding];
+                                            }];
+                                        }
                                     }];
-                                }
+                                });
                             }];
+                            
                         });
                     }];
                 }];

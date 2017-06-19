@@ -11,6 +11,8 @@ NSString *const WMFArticleUpdatedNotification = @"WMFArticleUpdatedNotification"
 
 NSString *const MWKDataStoreValidImageSitePrefix = @"//upload.wikimedia.org/";
 
+NSString *const WMFLibraryVersionKey = @"WMFLibraryVersion";
+
 NSString *MWKCreateImageURLWithPath(NSString *path) {
     return [MWKDataStoreValidImageSitePrefix stringByAppendingString:path];
 }
@@ -442,6 +444,26 @@ static uint64_t bundleHash() {
                                                                  });
                                                              }];
     }];
+}
+
+- (void)performLibraryMigrationIfNecessaryWithCompletion:(nonnull void (^)(NSError *))completion {
+    WMFAssertMainThread(@"Library migration must be performed on the main thread");
+    NSInteger libraryVersion = [[self.viewContext wmf_numberValueForKey:WMFLibraryVersionKey] integerValue];
+    if (libraryVersion < 2) {
+        [self performBackgroundCoreDataOperationOnATemporaryContext:^(NSManagedObjectContext *moc) {
+            
+            
+//            [moc wmf_setValue:@(2) forKey:WMFLibraryVersionKey];
+//            NSError *saveError = nil;
+//            [moc save:&saveError];
+//            if (saveError) {
+//                DDLogError(@"Error saving during library migration %@", saveError);
+//            }
+//            completion(nil);
+        }];
+    } else {
+        completion(nil);
+    }
 }
 
 #pragma mark - Background Contexts
