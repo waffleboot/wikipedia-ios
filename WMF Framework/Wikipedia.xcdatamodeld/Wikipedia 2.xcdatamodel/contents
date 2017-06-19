@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F2073" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
         <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="geoDimensionNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -25,6 +25,7 @@
         <attribute name="viewedScrollPosition" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wasSignificantlyViewed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wikidataDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="contentItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WMFContentItem" inverseName="articles" inverseEntity="WMFContentItem" syncable="YES"/>
         <compoundIndexes>
             <compoundIndex>
                 <index value="viewedDate"/>
@@ -78,6 +79,7 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="midnightUTCDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="object" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="articles" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WMFArticle" inverseName="contentItems" inverseEntity="WMFArticle" syncable="YES"/>
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WMFContentGroup" inverseName="items" inverseEntity="WMFContentGroup" syncable="YES"/>
     </entity>
     <entity name="WMFKeyValue" representedClassName="WMFKeyValue" syncable="YES">
@@ -94,9 +96,9 @@
         </compoundIndexes>
     </entity>
     <elements>
-        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="405"/>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="420"/>
         <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="270"/>
-        <element name="WMFContentItem" positionX="-54" positionY="144" width="128" height="135"/>
+        <element name="WMFContentItem" positionX="-54" positionY="144" width="128" height="150"/>
         <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>
     </elements>
 </model>

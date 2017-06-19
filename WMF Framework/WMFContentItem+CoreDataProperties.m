@@ -11,6 +11,7 @@
 @dynamic date;
 @dynamic midnightUTCDate;
 @dynamic object;
+@dynamic articles;
 @dynamic group;
 
 @end
