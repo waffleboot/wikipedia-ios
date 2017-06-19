@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F2073" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="WMFArticle" representedClassName="WMFArticle" syncable="YES">
+        <attribute name="displayTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="geoDimensionNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="geoTypeNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="imageHeight" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="imageURLString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageWidth" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isDownloaded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isExcludedFromFeed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="newsNotificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="pageViews" optional="YES" attributeType="Transformable" customClassName="NSDictionary" syncable="YES"/>
+        <attribute name="placesSortOrder" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="savedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="signedQuadKey" optional="YES" attributeType="Integer 64" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="snippet" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbnailURLString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="viewedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="viewedDateWithoutTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="viewedFragment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="viewedScrollPosition" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="wasSignificantlyViewed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="wikidataDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="viewedDate"/>
+                <index value="savedDate"/>
+                <index value="isExcludedFromFeed"/>
+                <index value="key"/>
+            </compoundIndex>
+            <compoundIndex>
+                <index value="viewedDateWithoutTime"/>
+                <index value="viewedDate"/>
+            </compoundIndex>
+            <compoundIndex>
+                <index value="savedDate"/>
+                <index value="isDownloaded"/>
+            </compoundIndex>
+        </compoundIndexes>
+    </entity>
+    <entity name="WMFContentGroup" representedClassName="WMFContentGroup" syncable="YES">
+        <attribute name="articleURLString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="content" optional="YES" attributeType="Transformable" customClassName="NSArray" syncable="YES"/>
+        <attribute name="contentGroupKindInteger" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="contentMidnightUTCDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="contentTypeInteger" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="dailySortPriority" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isVisible" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="key" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="Transformable" customClassName="CLLocation" syncable="YES"/>
+        <attribute name="midnightUTCDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="placemark" optional="YES" attributeType="Transformable" customClassName="CLPlacemark" syncable="YES"/>
+        <attribute name="siteURLString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wasDismissed" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="WMFContentItem" inverseName="group" inverseEntity="WMFContentItem" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="isVisible"/>
+                <index value="midnightUTCDate"/>
+                <index value="dailySortPriority"/>
+                <index value="date"/>
+            </compoundIndex>
+            <compoundIndex>
+                <index value="contentGroupKindInteger"/>
+                <index value="midnightUTCDate"/>
+                <index value="siteURLString"/>
+            </compoundIndex>
+        </compoundIndexes>
+    </entity>
+    <entity name="WMFContentItem" representedClassName="WMFContentItem" syncable="YES" codeGenerationType="class">
+        <attribute name="articleURLString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contentTypeInteger" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="midnightUTCDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="object" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WMFContentGroup" inverseName="items" inverseEntity="WMFContentGroup" syncable="YES"/>
+    </entity>
+    <entity name="WMFKeyValue" representedClassName="WMFKeyValue" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="key" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="key"/>
+                <index value="group"/>
+                <index value="date"/>
+            </compoundIndex>
+        </compoundIndexes>
+    </entity>
+    <elements>
+        <element name="WMFArticle" positionX="-63" positionY="-18" width="128" height="405"/>
+        <element name="WMFContentGroup" positionX="-63" positionY="99" width="128" height="270"/>
+        <element name="WMFKeyValue" positionX="-63" positionY="135" width="128" height="105"/>
+        <element name="WMFContentItem" positionX="-54" positionY="144" width="128" height="135"/>
+    </elements>
+</model>

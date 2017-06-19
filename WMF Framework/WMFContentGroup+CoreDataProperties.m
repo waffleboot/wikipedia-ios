@@ -3,22 +3,23 @@
 @implementation WMFContentGroup (CoreDataProperties)
 
 + (NSFetchRequest<WMFContentGroup *> *)fetchRequest {
-    return [[NSFetchRequest alloc] initWithEntityName:@"WMFContentGroup"];
+	return [[NSFetchRequest alloc] initWithEntityName:@"WMFContentGroup"];
 }
 
 @dynamic articleURLString;
-@dynamic contentTypeInteger;
+@dynamic content;
 @dynamic contentGroupKindInteger;
+@dynamic contentMidnightUTCDate;
+@dynamic contentTypeInteger;
 @dynamic dailySortPriority;
 @dynamic date;
-@dynamic midnightUTCDate;
-@dynamic contentMidnightUTCDate;
+@dynamic isVisible;
 @dynamic key;
 @dynamic location;
+@dynamic midnightUTCDate;
 @dynamic placemark;
 @dynamic siteURLString;
-@dynamic content;
-@dynamic isVisible;
 @dynamic wasDismissed;
+@dynamic items;
 
 @end
