@@ -1,4 +1,4 @@
-#import "WMFContentGroup+CoreDataClass.h"
+#import <WMF/WMFContentGroup+CoreDataClass.h>
 
 @implementation WMFContentGroup
 

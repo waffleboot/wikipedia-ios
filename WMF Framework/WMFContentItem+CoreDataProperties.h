@@ -1,5 +1,4 @@
-#import "WMFContentItem+CoreDataClass.h"
-
+#import <WMF/WMFContentItem+CoreDataClass.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

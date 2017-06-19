@@ -1,5 +1,7 @@
-#import "WMFContentGroup+CoreDataClass.h"
-
+#import <WMF/WMFContentGroup+CoreDataClass.h>
+@class WMFContentItem;
+@class CLLocation;
+@class CLPlacemark;
 
 NS_ASSUME_NONNULL_BEGIN
 

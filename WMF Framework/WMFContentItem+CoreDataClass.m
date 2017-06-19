@@ -1,5 +1,5 @@
-#import "WMFContentItem+CoreDataClass.h"
-#import "WMFContentGroup+CoreDataClass.h"
+#import <WMF/WMFContentItem+CoreDataClass.h>
+#import <WMF/WMFContentGroup+CoreDataClass.h>
 
 @implementation WMFContentItem
 

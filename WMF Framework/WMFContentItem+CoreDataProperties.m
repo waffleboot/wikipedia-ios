@@ -1,4 +1,4 @@
-#import "WMFContentItem+CoreDataProperties.h"
+#import <WMF/WMFContentItem+CoreDataProperties.h>
 
 @implementation WMFContentItem (CoreDataProperties)
 
