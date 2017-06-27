@@ -295,6 +295,22 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
     return [self.userStore fetchArticleWithURL:url];
 }
 
+- (void)prefetchArticles {
+    NSUInteger fetchLimit = 50;
+    NSMutableArray<NSString *> *keys = [NSMutableArray arrayWithCapacity:fetchLimit];
+    for (NSInteger i = 0, n = self.numberOfSectionsInExploreFeed; i < n && fetchLimit; ++i) {
+        for (NSInteger j = 0, rowsCount = [self numberOfItemsInSection:i]; j < rowsCount && fetchLimit; ++j) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:j inSection:i];
+            NSURL *url = [self contentURLForIndexPath:indexPath];
+            if (url) {
+                [keys addObject:[url wmf_articleDatabaseKey]];
+                fetchLimit--;
+            }
+        }
+    }
+    [self.userStore prefetchArticlesWithKeys:keys];
+}
+
 - (nullable WMFFeedTopReadArticlePreview *)topReadPreviewForIndexPath:(NSIndexPath *)indexPath {
     NSArray<WMFFeedTopReadArticlePreview *> *content = [self contentForSectionAtIndex:indexPath.section];
     if (indexPath.row >= content.count) {
@@ -426,6 +442,7 @@ const NSInteger WMFExploreFeedMaximumNumberOfDays = 30;
         self.fetchedResultsController = frc;
         [self updateSectionCounts];
         [self.collectionView reloadData];
+        [self prefetchArticles];
     }
 
     @weakify(self);

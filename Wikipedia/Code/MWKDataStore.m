@@ -1433,6 +1433,16 @@ static uint64_t bundleHash() {
     return [self fetchOrCreateArticleWithURL:URL inManagedObjectContext:self.viewContext];
 }
 
+- (void)prefetchArticlesWithKeys:(nonnull NSArray<NSString *> *)keys {
+    WMFAssertMainThread(@"Article fetch must be performed on the main thread.");
+    NSFetchRequest *request = [WMFArticle fetchRequest];
+    request.fetchLimit = keys.count;
+    request.predicate = [NSPredicate predicateWithFormat:@"key IN %@", keys];
+    for (WMFArticle *article in [self.viewContext executeFetchRequest:request error:nil]) {
+        [self.articlePreviewCache setObject:article forKey:article.key];
+    }
+}
+
 - (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc {
     NSParameterAssert(articleURL);
     if ([articleURL wmf_isNonStandardURL]) {

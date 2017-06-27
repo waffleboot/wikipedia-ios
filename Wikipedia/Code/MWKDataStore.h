@@ -63,6 +63,7 @@ extern NSString *const WMFArticleUpdatedNotification;
 - (nullable WMFArticle *)fetchArticleWithURL:(NSURL *)URL;         //uses the view context
 - (nullable WMFArticle *)fetchArticleWithKey:(NSString *)key;      //uses the view context
 - (nullable WMFArticle *)fetchOrCreateArticleWithURL:(NSURL *)URL; //uses the view context
+- (void)prefetchArticlesWithKeys:(nonnull NSArray<NSString *> *)keys; // uses the view context
 
 - (BOOL)isArticleWithURLExcludedFromFeed:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;
 - (void)setIsExcludedFromFeed:(BOOL)isExcludedFromFeed withArticleURL:(NSURL *)articleURL inManagedObjectContext:(NSManagedObjectContext *)moc;
