@@ -81,6 +81,7 @@
                                     "     font-size:12px;"
                                     "}"
                                     " sup * {"
+                                    "     font-family:Helvetica, Arial, Sans-serif, -apple-system;"
                                     "     line-height:12px;"
                                     "     font-size:12px;"
                                     "}"
