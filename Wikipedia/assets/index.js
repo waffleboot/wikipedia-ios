@@ -1332,7 +1332,7 @@ var replaceAnchorWithSpan = function replaceAnchorWithSpan(anchor, span) {
 var hideRedLinks = function hideRedLinks(document, fragment) {
   var spanTemplate = newRedLinkTemplate(document);
   var content = fragment !== undefined ? fragment : document;
-  redLinkAnchorsInContent(content).forEach(function (redLink) {
+  Array.from(redLinkAnchorsInContent(content)).forEach(function (redLink) {
     var span = spanTemplate.cloneNode(false);
     configureRedLinkTemplate(span, redLink);
     replaceAnchorWithSpan(redLink, span);
