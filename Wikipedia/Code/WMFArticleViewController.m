@@ -264,8 +264,6 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     [self updateToolbar];
     [self setupTableOfContentsViewController];
     [self updateTableOfContentsForFootersIfNeeded];
-    
-
 
     if (_article && self.shouldShareArticleOnLoad) {
         self.shareArticleOnLoad = NO;
@@ -1379,6 +1377,10 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
     if (fullscreenGallery != nil) {
         [self presentViewController:fullscreenGallery animated:YES completion:nil];
     }
+}
+
+- (void)webViewController:(WebViewController *)controller didTapMediaWithSource:(NSString *)source {
+    NSLog(@"%@", source);
 }
 
 - (void)webViewController:(WebViewController *)controller didLoadArticle:(MWKArticle *)article {

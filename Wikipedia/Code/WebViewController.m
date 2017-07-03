@@ -288,7 +288,15 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)handleMediaClickedScriptMessage:(NSDictionary *)messageDict {
-    NSLog(@"%@", messageDict);
+    [self wmf_dismissReferencePopoverAnimated:NO completion:^{
+        NSString *selectedMediaSrcString = messageDict[@"media"];
+        NSCParameterAssert(selectedMediaSrcString.length);
+        if (!selectedMediaSrcString.length) {
+            DDLogError(@"Media clicked callback invoked with empty src: %@", messageDict);
+            return;
+        }
+        [self.delegate webViewController:self didTapMediaWithSource:selectedMediaSrcString];
+    }];
 }
 
 - (void)handleLateJavascriptTransformScriptMessage:(NSString *)messageString {
