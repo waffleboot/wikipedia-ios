@@ -19,4 +19,7 @@
 
 - (void)setResponseData:(NSData *)data withContentType:(NSString *)contentType forPath:(NSString *)path;
 
+- (NSURL *)proxyURLForFiles;
+- (NSURL *)proxyURLForMedia;
+
 @end

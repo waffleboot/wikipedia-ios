@@ -5,6 +5,7 @@ NSString *const WMFProxyImageOriginalSrcKey = @"originalSrc";
 NSString *const WMFProxyImageBasePath = @"imageProxy";
 NSString *const WMFProxyFileBasePath = @"fileProxy";
 NSString *const WMFProxyAPIBasePath = @"APIProxy";
+NSString *const WMFProxyMediaBasePath = @"mediaProxy";
 
 @implementation NSURL (WMFProxyServer)
 

@@ -72,6 +72,16 @@ module.exports = function (grunt) {
             dest: distFolder
           }
         ]
+      },
+      ogv: {
+        expand: true,
+        cwd: 'node_modules/ogv/dist',
+        src: [
+          '*.js',
+          '!*-webm.js',
+          '!*-wasm.js',
+        ],
+        dest: `${distFolder}ogv/`
       }
     }
   } )

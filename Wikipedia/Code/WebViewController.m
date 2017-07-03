@@ -16,6 +16,7 @@
 #import "WMFFindInPageKeyboardBar.h"
 #import "WebViewController+WMFReferencePopover.h"
 #import "WMFReferencePopoverMessageViewController.h"
+#import "WMFProxyServer.h"
 
 typedef NS_ENUM(NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -592,14 +593,18 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
         [userContentController addScriptMessageHandler:[[WeakScriptMessageDelegate alloc] initWithDelegate:self] name:handlerName];
     }
 
-    NSString *earlyJavascriptTransforms = @""
-                                           "window.wmf.redLinks.hideRedLinks( document );"
-                                           "window.wmf.filePages.disableFilePageEdit( document );"
-                                           "window.wmf.images.widenImages( document );"
-                                           "window.wmf.paragraphs.moveFirstGoodParagraphUp( document );"
-                                           "window.wmf.media.install( document );"
-                                           "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
-                                           "console.log = function(message){window.webkit.messageHandlers.javascriptConsoleLog.postMessage({'message': message});};";
+    NSURL *mediaURL = [[WMFProxyServer sharedProxyServer] proxyURLForMedia];
+    NSURL *filesURL = [[WMFProxyServer sharedProxyServer] proxyURLForFiles];
+
+    NSString *earlyJavascriptTransforms = [NSString stringWithFormat:@""
+                                                                      "window.wmf.redLinks.hideRedLinks( document );"
+                                                                      "window.wmf.filePages.disableFilePageEdit( document );"
+                                                                      "window.wmf.images.widenImages( document );"
+                                                                      "window.wmf.paragraphs.moveFirstGoodParagraphUp( document );"
+                                                                      "window.wmf.media.install( document , '%@', '%@' );"
+                                                                      "window.webkit.messageHandlers.articleState.postMessage('articleLoaded');"
+                                                                      "console.log = function(message){window.webkit.messageHandlers.javascriptConsoleLog.postMessage({'message': message});};",
+                                                                     mediaURL, filesURL];
 
     [userContentController addUserScript:
                                [[WKUserScript alloc] initWithSource:earlyJavascriptTransforms

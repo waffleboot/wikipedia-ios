@@ -178,6 +178,10 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
                 return;
             }
             notFound();
+        } else if ([baseComponent isEqualToString:WMFProxyMediaBasePath]) {
+            NSArray *localPathComponents = [components subarrayWithRange:NSMakeRange(3, components.count - 3)];
+            NSString *relativePath = [NSString pathWithComponents:localPathComponents];
+            [self handleMediaRequestForRelativePath:relativePath completionBlock:completionBlock];
         } else {
             notFound();
         }
@@ -260,7 +264,23 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
     }
 }
 
+- (void)handleMediaRequestForRelativePath:(NSString *)relativePath completionBlock:(GCDWebServerCompletionBlock)completionBlock {
+    [self handleFileRequestForRelativePath:relativePath completionBlock:completionBlock];
+}
+
 #pragma - File Proxy Paths &URLs
+
+- (NSURL *)proxyURLForFiles {
+    NSString *secret = self.secret;
+    NSURL *serverURL = self.webServer.serverURL;
+    if (secret == nil || serverURL == nil) {
+        return nil;
+    }
+    
+    NSURLComponents *components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
+    components.path = [NSString pathWithComponents:@[@"/", secret, WMFProxyFileBasePath]];
+    return components.URL;
+}
 
 - (NSURL *)proxyURLForRelativeFilePath:(NSString *)relativeFilePath fragment:(NSString *)fragment {
     NSString *secret = self.secret;
@@ -306,6 +326,20 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
     if (queryItem) {
         components.queryItems = @[queryItem];
     }
+    return components.URL;
+}
+
+#pragma - Media Proxy URLs
+
+- (NSURL *)proxyURLForMedia {
+    NSString *secret = self.secret;
+    NSURL *serverURL = self.webServer.serverURL;
+    if (secret == nil || serverURL == nil) {
+        return nil;
+    }
+
+    NSURLComponents *components = [NSURLComponents componentsWithURL:serverURL resolvingAgainstBaseURL:NO];
+    components.path = [NSString pathWithComponents:@[@"/", secret, WMFProxyMediaBasePath]];
     return components.URL;
 }
 

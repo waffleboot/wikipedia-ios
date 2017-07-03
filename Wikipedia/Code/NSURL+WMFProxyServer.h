@@ -23,6 +23,7 @@ extern NSString *const WMFProxyImageOriginalSrcKey;
 extern NSString *const WMFProxyImageBasePath;
 extern NSString *const WMFProxyFileBasePath;
 extern NSString *const WMFProxyAPIBasePath;
+extern NSString *const WMFProxyMediaBasePath;
 
 @interface NSURL (WMFProxyServer)
 
