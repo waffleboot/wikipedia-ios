@@ -44,7 +44,7 @@ static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is
     NSNumber *fontSize = [[NSUserDefaults wmf_userDefaults] wmf_articleFontSizeMultiplier];
     NSString *fontString = [NSString stringWithFormat:@"%ld%%", (long)fontSize.integerValue];
 
-    NSAssert([fileContents componentsSeparatedByString:@"%@"].count == (8 + 1), @"\nHTML template file does not have required number of percent-ampersand occurences (8).\nNumber of percent-ampersands must match number of values passed to  'stringWithFormat:'");
+    NSAssert([fileContents componentsSeparatedByString:@"%@"].count - 1 == 8, @"\nHTML template file does not have required number of percent-ampersand occurences (8).\nNumber of percent-ampersands must match number of values passed to  'stringWithFormat:'");
 
     // index.html and preview.html have four "%@" subsitition markers. Replace both of these with actual content.
     NSString *templateAndContent = [NSString stringWithFormat:fileContents, fontString, baseURL.absoluteString, @(padding.top), @(padding.right), @(padding.bottom), @(padding.left), string, [self footerTemplateHTML]];
