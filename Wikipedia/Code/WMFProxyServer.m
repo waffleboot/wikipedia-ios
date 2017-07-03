@@ -55,6 +55,8 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
 
     self.hostedFolderPath = [WikipediaAppUtils assetsPath];
 
+    self.hostedFolderPath = @"/Users/yangand/Downloads/wikipedia-ios/Wikipedia/assets";
+
     self.webServer = [[GCDWebServer alloc] init];
 
     self.webServer.delegate = self;
@@ -216,7 +218,6 @@ static const NSInteger WMFCachedResponseCountLimit = 4;
             NSData *data = [NSData dataWithContentsOfURL:localFileURL];
             NSString *contentType = GCDWebServerGetMimeTypeForExtension([localFileURL pathExtension]);
             response = [WMFProxyServerResponse responseWithData:data contentType:contentType];
-            self.responsesByPath[relativePath] = response;
             completionBlock(response.GCDWebServerResponse);
         } else {
             completionBlock([GCDWebServerErrorResponse responseWithClientError:kGCDWebServerHTTPStatusCode_NotFound message:@"404"]);

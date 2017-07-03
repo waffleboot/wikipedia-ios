@@ -15,6 +15,7 @@ static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is
     fragment = fragment ? fragment : @"top";
     NSURL *requestURL = [[WMFProxyServer sharedProxyServer] proxyURLForRelativeFilePath:fileName fragment:fragment];
     NSURLRequest *request = [NSURLRequest requestWithURL:requestURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:WKWebViewLoadAssetsHTMLRequestTimeout];
+    NSLog(@"%@", requestURL);
     [self loadRequest:request];
 }
 
@@ -32,6 +33,8 @@ static const NSTimeInterval WKWebViewLoadAssetsHTMLRequestTimeout = 60; //60s is
     string = [proxyServer stringByReplacingImageURLsWithProxyURLsInHTMLString:string withBaseURL:baseURL targetImageWidth:self.window.screen.wmf_articleImageWidthForScale];
 
     NSString *localFilePath = [[self getAssetsPath] stringByAppendingPathComponent:fileName];
+
+    localFilePath = @"/Users/yangand/Downloads/wikipedia-ios/Wikipedia/assets/index.html";
 
     if (!localFilePath) {
         return;
